@@ -1,89 +1,104 @@
-# Lesson 1: Data Types 
+# Competency 2: Data Types
 
-### Purpose 
-Turn rows into trustworthy metrics.
+## Purpose
+Understand common data types and how they impact data modeling and analysis.
 
-### Objectives
-After completing this section, you will be able to: 
-* Recognize common data types
-* Differentiate between the different data types and when to use them
+## Objectives
+After completing this section, you will be able to:
 
-## Data Types 
+- Recognize common data types
+- Differentiate between data types and when to use them
+- Apply rules of thumb when choosing data types
 
-### Types of data 
-* Numeric (int, float)
-  - **Integer (i.e., int): A whole number.**
-  - Examples:
-    * user_id
-    * quantity
-    * age
-    * count of events
-      
-  - **Float: A decimal that can be rounded.**
-  - Examples:
-    * sensor readings
-    * averages
-    * scientific data
+---
+
+## Data Types
+
+### 1️⃣ Numeric (INT, FLOAT)
+
+#### Integer (`INT`)
+A whole number (no decimals).
+
+**Examples:**
+- `user_id`
+- `quantity`
+- `age`
+- `event_count`
+
+#### Float (`FLOAT`)
+A decimal number.
+
+**Examples:**
+- sensor readings
+- averages
+- scientific measurements
 
 **Rules of thumb:**
-  * Do not use a float for money
-  * INT ≠ FLOAT (e.g., 25 does not equal 25.5)
+- Do **not** use `FLOAT` for money (use `DECIMAL` instead).
+- `INT` ≠ `FLOAT` (e.g., `25` is not the same as `25.5`).
 
-    
-* String (char, varchar, text)
-**  **- Char: Fixed-length string (always uses the same space) ****
-  - Examples:
-    * country_code ("US", "CA")
-      
-  *** Varchar: Variable-length string**
-    - Examples:
-      * email
-      * username
-      * city
-        
- ** * Text: Large, unbounded strings**
-  - Examples:
-    * comments
-    * descriptions
-    * logs
-      
-* Dates & Times (DATE, TIMESTAMP)
-- DATE: Calendar date only (no time component)
+---
 
-- Examples:
+### 2️⃣ String (CHAR, VARCHAR, TEXT)
 
-* signup_date
+#### `CHAR`
+Fixed-length string (always uses the same space).
 
-birth_date
+**Examples:**
+- `country_code` ("US", "CA")
 
-invoice_date
+#### `VARCHAR`
+Variable-length string.
 
-- TIMESTAMP: Date and time combined (often stored in UTC)
+**Examples:**
+- `email`
+- `username`
+- `city`
 
-Examples:
+#### `TEXT`
+Large, unbounded strings.
 
-created_at
+**Examples:**
+- `comments`
+- `descriptions`
+- `logs`
 
-last_login
+---
 
-event_time
+### 3️⃣ Dates & Times (DATE, TIMESTAMP)
 
-Boolean / NULL
+#### `DATE`
+Calendar date only (no time component).
 
-* BOOLEAN: True / False values (logical flags)
+**Examples:**
+- `signup_date`
+- `birth_date`
+- `invoice_date`
 
-  - Examples:
-    * is_active
-    * has_paid
-    * is_deleted
+#### `TIMESTAMP`
+Date and time combined (often stored in UTC).
 
-* NULL: Represents missing or unknown data (not a value)
+**Examples:**
+- `created_at`
+- `last_login`
+- `event_time`
 
-Examples:
+---
 
-  middle_name (unknown)
+### 4️⃣ Boolean & NULL
 
-end_date (not yet occurred)
+#### `BOOLEAN`
+True / False values (logical flags).
 
-optional_phone_number
- 
+**Examples:**
+- `is_active`
+- `has_paid`
+- `is_deleted`
+
+#### `NULL`
+Represents missing or unknown data (not a value).
+
+**Examples:**
+- `middle_name` (unknown)
+- `end_date` (not yet occurred)
+- `optional_phone_number`
