@@ -20,15 +20,33 @@ A **SELECT** statement is the core SQL command used to retrieve data from a data
 
 ## Examples: 
 
-1. SELECT * FROM workspace.default.mlb_active_rosters_new;
-   * --  i.e., Give me all the rows in columns in this database/table. 
-2. SELECT player_name FROM workspace.default.mlb_active_rosters_new;
+1. What fields are available before we start building reports or models?
+   SELECT * FROM workspace.default.mlb_active_rosters_new;
+   * --  i.e., Give me all the rows in columns in this database/table.
+     
+2. Who is currently on the active roster?
+   SELECT player_name FROM workspace.default.mlb_active_rosters_new;
    * -- i.e., Select the column you want to pull from this table
-3. SELECT player_name, jersey_number FROM workspace.default.mlb_active_rosters_new;
-   * -- i.e., Select data from two columns 
-### Business Value Exercise 
+     
+3. What jersey number corresponds to each player?
+SELECT player_name, jersey_number FROM workspace.default.mlb_active_rosters_new;
+   * -- i.e., Select data from two columns
+
 
 ### Explanation/Debug
+  * Explanation: This helps teams audit roster data before building reports or making staffing decisions. Each grain is identified by club_id. 
+  * Debug: The numeric values are not the same data.
+         
+### Business Value Exercise 
+Instruction: Use workspace.mlb_ticketing.primary_sales 
+Question(s): 
+   1. What fields are available before we start building reports or models?
+   2. Can we analyze revenue patterns by channel?
+   3. What is the sum of each game by channel? 
+      
+### Explanation/Debug
+  * Explanation:  
+  * Debug: 
 
 ---
 
@@ -42,6 +60,8 @@ A **SELECT** statement is the core SQL command used to retrieve data from a data
    * -- i.e, Give me the rows with Arizona Diamondbacks
 
 ### Business Value Exercise 
+Question(s)
+  1. 
 
 ### Explanation/Debug
 
