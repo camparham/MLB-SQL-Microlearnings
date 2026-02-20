@@ -51,19 +51,25 @@ Question(s):
 ---
 
 ## 2️⃣ How to use WHERE
-**WHERE** is a clause for filtering, i.e., it decides which rows, columns, and data values stay in your result set 
+**WHERE** is a clause for filtering, i.e., it decides which rows, columns, and data values stay in your result set.  
 
 ### Examples: 
-1. SELECT * FROM workspace.default.mlb_active_rosters_new WHERE player_name = "Alek Thomas";
+1. What data is related to Alek Thomas? 
+   SELECT * FROM workspace.default.mlb_active_rosters_new WHERE player_name = "Alek Thomas";
    * -- i.e., Give me the row with Alek Thomas 
-2. SELECT * FROM workspace.default.mlb_active_rosters_new WHERE team_name = "Arizona Diamondbacks";
+2. Who's on the Arizona Diamondbacks team? 
+   SELECT * FROM workspace.default.mlb_active_rosters_new WHERE team_name = "Arizona Diamondbacks";
    * -- i.e, Give me the rows with Arizona Diamondbacks
 
 ### Business Value Exercise 
-Question(s)
-  1. 
+Instruction: Use workspace.mlb_ticketing.primary_sales 
+Question(s): 
+   1. What data is associated with Club_06? 
+   2. How many tickets were for the lower seat_section? 
 
 ### Explanation/Debug
+  * Explanation:  
+  * Debug: 
 
 ---
 
@@ -71,10 +77,19 @@ Question(s)
 **IS** is an operator, most commonly used to test for NULL and boolean values (true/false). 
 
 ### Examples: 
-1. SELECT * FROM workspace.default.mlb_active_rosters_new WHERE jersey_number IS null;
+1. Who does not have a jersey number? 
+   SELECT * FROM workspace.default.mlb_active_rosters_new WHERE jersey_number IS null;
  * --i.e., Give me the nulls from this specific column
 
-### Business Value Exercise/Debug 
+### Business Value Exercise 
+Instruction: Use workspace.mlb_ticketing.primary_sales 
+Question(s): 
+   1. How many people didn't pay for a ticket? 
+
+
+### Explanation/Debug
+  * Explanation:  
+  * Debug: 
 
 
 ---
