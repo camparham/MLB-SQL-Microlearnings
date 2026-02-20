@@ -86,6 +86,137 @@ Instruction: Use workspace.mlb_ticketing.primary_sales
 Question(s): 
    1. How many people didn't pay for a ticket? 
 
+### Explanation/Debug
+  * Explanation:  
+  * Debug: 
+
+---
+
+## 4️⃣ How to use JOINS
+**JOINS** combines rows from two or more tables, based on a related column. This is how data connects! 
+
+This enables questions like:
+> Who placed the order?  
+> What did they buy?  
+> How many items were ordered?  
+> Who sold the order?
+They join on **foreign keys**, which are columns that reference a **primary key** in another table. Foreign keys allow tables to be joined together.
+**Primary keys** uniquely identify each record in a table.
+
+
+### Keys:
+- Primary Key Examples: `CustomerID`, `OrderID`, `ProductID`
+* Must be unique
+* Cannot be `NULL`
+* Should not change over time
+- Foreign Key Examples
+* Order.CustomerID → Customer.CustomerID
+* Order.SalespersonID → Salesperson.SalespersonID
+
+### Keys Summary:
+Using primary and foreign keys, you can:
+- connect customers to orders
+- connect orders to products
+- connect orders to salespeople
+Example questions: This enables questions like:
+> Who placed the order?  
+> What did they buy?  
+> How many items were ordered?  
+> Who sold the order?
+
+### Examples: 
+
+1. What fields are available from both tables before we start building reports or models?
+  SELECT *
+  FROM workspace.mlb_ticketing.club_reports 
+  JOIN workspace.mlb_ticketing.primary_sales 
+  on club_reports.game_id = primary_sales.game_id;
+ * -- Select all columns from club reports and primary sales tables on the rows where the game ids match
+
+2. What game_id data is available for price_face and reported_revenue before we start building reports or models?
+  SELECT primary_sales.price_face, club_reports.reported_revenue, primary_sales.game_id
+  FROM workspace.mlb_ticketing.primary_sales 
+  JOIN workspace.mlb_ticketing. club_reports
+  on club_reports.game_id = primary_sales.game_id;
+* -- Select price_face and reported_revenue columns from club reports and primary sales tables on the rows where game ids match
+
+### Business Value Exercise 
+Instruction: Use workspace.mlb_ticketing.primary_sales 
+Question(s): 
+   1. How do ticket sales compare to club performance metrics?
+   2. What is the total ticket revenue by club?
+   3. Are clubs on track to meet attendance goals?
+
+### Explanation/Debug
+  * Explanation:  
+  * Debug: 
+---
+
+## 5️⃣ SUM
+**SUM** adds up numeric values across rows, i.e., add all these numbers together. To use SUM, you have to use GROUP BY. 
+**GROUP BY** is a clause used to group rows that have the same values in specified columns into summary rows. 
+**ORDER BY** sorts your query results.
+**DISTINCT** identifies the unique values in a column; it removes duplicate rows so each value appears only once.
+**DESC** orders results from highest to lowest. 
+**ASC** orders results from lowest to highest. 
+**MAX**
+
+### Examples: 
+1. What is the revenue per channel per game, i.e., for each game, we'll need how much revenue was generated from each channel?
+-- Step 1: Select 5 records to understand the data schema 
+SELECT * FROM workspace.mlb_ticketing.primary_sales 
+LIMIT 5;
+
+-- Step 2: Choose the columns that need to be analyzed 
+SELECT primary_sales.channel, primary_sales.game_id, primary_sales.price_face
+FROM workspace.mlb_ticketing.primary_sales;
+
+--Step 3: Add the total price for each game_id by channel 
+SELECT SUM(price_face), primary_sales.channel, primary_sales.game_id
+FROM workspace.mlb_ticketing.primary_sales
+GROUP BY channel, game_id;
+
+2.  What game brought in the most money?
+-- Step 1: Analyze 20 records to understand the data schema 
+SELECT * FROM workspace.mlb_ticketing.primary_sales 
+LIMIT 20;
+
+-- Step 2: Sum by channel descending to get the most lucrative 
+SELECT SUM(price_face), primary_sales.channel
+FROM workspace.mlb_ticketing.primary_sales
+GROUP BY channel
+ORDER BY SUM(price_face) DESC;
+
+3. Which clubs are represented in this dataset? I don't need to see the duplicate date
+SELECT DISTINCT club_id FROM workspace.mlb_ticketing.primary_sales;
+--Select the unique values in the club_id column
+
+4. What is the earliest and latest ticket sold?
+--Latest
+SELECT primary_sales.sale_datetime, primary_sales.ticket_id
+FROM workspace.mlb_ticketing.primary_sales
+ORDER BY sale_datetime DESC LIMIT 1;
+
+**or** 
+
+SELECT MAX(primary_sales.sale_datetime)
+FROM workspace.mlb_ticketing.primary_sales;
+
+-- Earliest 
+SELECT primary_sales.sale_datetime, primary_sales.ticket_id
+FROM workspace.mlb_ticketing.primary_sales
+ORDER BY sale_datetime ASC LIMIT 1;
+ 
+**or**
+
+SELECT MIN(primary_sales.sale_datetime)
+FROM workspace.mlb_ticketing.primary_sales;
+
+### Business Value Exercise 
+Instruction: Use workspace.mlb_ticketing.primary_sales 
+Question(s): 
+   1. Which teams drive the most ticket revenue?
+   2. Where are we seeing premium demand?
 
 ### Explanation/Debug
   * Explanation:  
@@ -94,84 +225,41 @@ Question(s):
 
 ---
 
-## 4️⃣ How to use JOINS
-**JOINS** combines rows from two or more tables, based on a related column.
+## 8️⃣ COUNT
+**COUNT** is used to measure volume. 
+**AVG** calculates the mean value of a numeric column. It is used to determine central tendency. 
+**AS** helps you change the name of the columns so stakeholders have better insight. You'll have to define this in the first line with SELECT or it will not work. 
 
 ### Examples: 
+1. What is the count for distinct ticket_id values? 
+SELECT COUNT(DISTINCT ticket_id)
+FROM workspace.mlb_ticketing.primary_sales;
 
-1. SELECT *
-FROM workspace.mlb_ticketing.club_reports 
-JOIN workspace.mlb_ticketing.primary_sales 
-on club_reports.game_id = primary_sales.game_id;
- -- Select all columns from club reports and primary sales tables on the rows where the game ids match
+2. What is the average ticket purchase? 
+SELECT AVG(primary_sales.price_face) AS average_ticket_price
+FROM workspace.mlb_ticketing.primary_sales;
 
-ERDs provide a high-level view of the database structure and available data.
+### Business Value Exercise 
+Instruction: Use workspace.mlb_ticketing.primary_sales 
+Question(s): 
+   1. How many tickets were sold in total?
+   2. Are sales increasing or decreasing over time?
+   3. What is the typical ticket price?
+   4. Are customers paying more or less over time?
 
----
-
-## 5️⃣ Primary Keys
-A **primary key** uniquely identifies each record in a table.
-
-### Rules for Primary Keys:
-- Must be unique
-- Cannot be `NULL`
-- Should not change over time
-
-### Examples:
-- `CustomerID`
-- `OrderID`
-- `ProductID`
-
-### Composite Keys
-A **composite key** uses multiple columns to uniquely identify a record.
-
-⚠️ Poor choices (like first name + last name) can cause issues if duplicates exist.
-
----
-
-## 6️⃣ Foreign Keys
-A **foreign key** is a column that references a **primary key** in another table.
-
-### Examples:
-- `Order.CustomerID` → `Customer.CustomerID`
-- `Order.SalespersonID` → `Salesperson.SalespersonID`
-
-Foreign keys allow tables to be joined together.
-
----
-
-## 7️⃣ Joining Tables (How Data Connects)
-Using primary and foreign keys, you can:
-- connect customers to orders
-- connect orders to products
-- connect orders to salespeople
-
-This enables questions like:
-> Who placed the order?  
-> What did they buy?  
-> How many items were ordered?  
-> Who sold the order?
-
----
-
-## 8️⃣ Referential Integrity
-**Referential integrity** ensures that:
-- every foreign key references an existing primary key
-- relationships between tables remain valid
-
-### Why It Matters:
-- prevents broken references
-- maintains data accuracy and consistency
-
-Database constraints enforce referential integrity.
+### Explanation/Debug
+  * Explanation:  
+  * Debug: 
 
 ---
 
 ## ✅ Key Takeaways
-- Relational databases store data in connected tables
-- Entities represent real-world objects
-- Relationships define how entities connect
-- ERDs visualize database structure
-- Primary keys uniquely identify records
-- Foreign keys connect tables
-- Referential integrity keeps data reliable
+- Learned how to explore and understand datasets using SELECT, filtering, and sorting to ask meaningful questions before analysis.
+
+- Built the ability to define and calculate core metrics (COUNT, SUM, AVG, MIN, MAX) that translate raw data into business insights.
+
+- Understood how GROUP BY sets the level of analysis and why grain awareness is critical to avoid double-counting.
+
+- Developed habits for validating results, including distinguishing WHERE vs HAVING and checking assumptions.
+
+- Strengthened the mindset of connecting SQL to business decisions, turning queries into clear, interpretable insights for stakeholders.
