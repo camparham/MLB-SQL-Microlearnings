@@ -15,23 +15,33 @@ Demonstrate the ability to construct trustworthy business metrics from raw trans
 
 ---
 
-## 1️⃣ How to use SELECT 
+## 1. How to use SELECT 
 A **SELECT** statement is the core SQL command used to retrieve data from a database
 
 ## Examples: 
 
 1. What fields are available before we start building reports or models?
+```
+-- Instruction: Give me all the rows in columns in this database/table.
+
    SELECT * FROM workspace.default.mlb_active_rosters_new;
-   * --  i.e., Give me all the rows in columns in this database/table.
+```
+ 
      
 2. Who is currently on the active roster?
+   
+```
+   -- Instruction: Select the column you want to pull from this table
+   
    SELECT player_name FROM workspace.default.mlb_active_rosters_new;
-   * -- i.e., Select the column you want to pull from this table
+```
      
 3. What jersey number corresponds to each player?
-SELECT player_name, jersey_number FROM workspace.default.mlb_active_rosters_new;
-   * -- i.e., Select data from two columns
+```
+ -- Instruction: Select data from two columns
 
+SELECT player_name, jersey_number FROM workspace.default.mlb_active_rosters_new;
+```
 
 ### Explanation/Debug
   * Explanation: This helps teams audit roster data before building reports or making staffing decisions. Each grain is identified by club_id. 
@@ -50,16 +60,26 @@ Question(s):
 
 ---
 
-## 2️⃣ How to use WHERE
+## 2. How to use WHERE
 **WHERE** is a clause for filtering, i.e., it decides which rows, columns, and data values stay in your result set.  
 
 ### Examples: 
-1. What data is related to Alek Thomas? 
-   SELECT * FROM workspace.default.mlb_active_rosters_new WHERE player_name = "Alek Thomas";
-   * -- i.e., Give me the row with Alek Thomas 
-2. Who's on the Arizona Diamondbacks team? 
-   SELECT * FROM workspace.default.mlb_active_rosters_new WHERE team_name = "Arizona Diamondbacks";
-   * -- i.e, Give me the rows with Arizona Diamondbacks
+1. What data is related to Alek Thomas?
+
+```
+-- Instruction: Give me the row with Alek Thomas
+
+SELECT * FROM workspace.default.mlb_active_rosters_new WHERE player_name = "Alek Thomas";
+
+```
+
+2. Who's on the Arizona Diamondbacks team?
+```
+-- Instruction: Give me the rows with Arizona Diamondbacks
+
+SELECT * FROM workspace.default.mlb_active_rosters_new WHERE team_name = "Arizona Diamondbacks";
+
+```
 
 ### Business Value Exercise 
 Instruction: Use workspace.mlb_ticketing.primary_sales 
@@ -73,13 +93,17 @@ Question(s):
 
 ---
 
-## 3️⃣ IS
+## 3. IS
 **IS** is an operator, most commonly used to test for NULL and boolean values (true/false). 
 
 ### Examples: 
-1. Who does not have a jersey number? 
-   SELECT * FROM workspace.default.mlb_active_rosters_new WHERE jersey_number IS null;
- * --i.e., Give me the nulls from this specific column
+1. Who does not have a jersey number?
+
+```
+-- Instruction: Give me the nulls from this specific column
+
+   SELECT * FROM workspace.default.mlb_active_rosters_new WHERE jersey_number IS null; 
+```
 
 ### Business Value Exercise 
 Instruction: Use workspace.mlb_ticketing.primary_sales 
@@ -92,67 +116,7 @@ Question(s):
 
 ---
 
-## 4️⃣ How to use JOINS
-**JOINS** combines rows from two or more tables, based on a related column. This is how data connects! 
-
-This enables questions like:
-> Who placed the order?  
-> What did they buy?  
-> How many items were ordered?  
-> Who sold the order?
-They join on **foreign keys**, which are columns that reference a **primary key** in another table. Foreign keys allow tables to be joined together.
-**Primary keys** uniquely identify each record in a table.
-
-
-### Keys:
-- Primary Key Examples: `CustomerID`, `OrderID`, `ProductID`
-* Must be unique
-* Cannot be `NULL`
-* Should not change over time
-- Foreign Key Examples
-* Order.CustomerID → Customer.CustomerID
-* Order.SalespersonID → Salesperson.SalespersonID
-
-### Keys Summary:
-Using primary and foreign keys, you can:
-- connect customers to orders
-- connect orders to products
-- connect orders to salespeople
-Example questions: This enables questions like:
-> Who placed the order?  
-> What did they buy?  
-> How many items were ordered?  
-> Who sold the order?
-
-### Examples: 
-
-1. What fields are available from both tables before we start building reports or models?
-  SELECT *
-  FROM workspace.mlb_ticketing.club_reports 
-  JOIN workspace.mlb_ticketing.primary_sales 
-  on club_reports.game_id = primary_sales.game_id;
- * -- Select all columns from club reports and primary sales tables on the rows where the game ids match
-
-2. What game_id data is available for price_face and reported_revenue before we start building reports or models?
-  SELECT primary_sales.price_face, club_reports.reported_revenue, primary_sales.game_id
-  FROM workspace.mlb_ticketing.primary_sales 
-  JOIN workspace.mlb_ticketing. club_reports
-  on club_reports.game_id = primary_sales.game_id;
-* -- Select price_face and reported_revenue columns from club reports and primary sales tables on the rows where game ids match
-
-### Business Value Exercise 
-Instruction: Use workspace.mlb_ticketing.primary_sales 
-Question(s): 
-   1. How do ticket sales compare to club performance metrics?
-   2. What is the total ticket revenue by club?
-   3. Are clubs on track to meet attendance goals?
-
-### Explanation/Debug
-  * Explanation:  
-  * Debug: 
----
-
-## 5️⃣ SUM
+## 4. SUM
 **SUM** adds up numeric values across rows, i.e., add all these numbers together. To use SUM, you have to use GROUP BY. 
 **GROUP BY** is a clause used to group rows that have the same values in specified columns into summary rows. 
 **ORDER BY** sorts your query results.
@@ -163,54 +127,76 @@ Question(s):
 
 ### Examples: 
 1. What is the revenue per channel per game, i.e., for each game, we'll need how much revenue was generated from each channel?
+```
 -- Step 1: Select 5 records to understand the data schema 
+
 SELECT * FROM workspace.mlb_ticketing.primary_sales 
 LIMIT 5;
 
--- Step 2: Choose the columns that need to be analyzed 
+-- Step 2: Choose the columns that need to be analyzed
+
 SELECT primary_sales.channel, primary_sales.game_id, primary_sales.price_face
 FROM workspace.mlb_ticketing.primary_sales;
 
---Step 3: Add the total price for each game_id by channel 
+--Step 3: Add the total price for each game_id by channel
+
 SELECT SUM(price_face), primary_sales.channel, primary_sales.game_id
 FROM workspace.mlb_ticketing.primary_sales
 GROUP BY channel, game_id;
 
+```
+
 2.  What game brought in the most money?
--- Step 1: Analyze 20 records to understand the data schema 
+```
+-- Step 1: Analyze 20 records to understand the data schema
+
 SELECT * FROM workspace.mlb_ticketing.primary_sales 
 LIMIT 20;
 
--- Step 2: Sum by channel descending to get the most lucrative 
+-- Step 2: Sum by channel descending to get the most lucrative
+ 
 SELECT SUM(price_face), primary_sales.channel
 FROM workspace.mlb_ticketing.primary_sales
 GROUP BY channel
 ORDER BY SUM(price_face) DESC;
+```
 
 3. Which clubs are represented in this dataset? I don't need to see the duplicate date
+```
+-- Instruction: Select the unique values in the club_id column
+
 SELECT DISTINCT club_id FROM workspace.mlb_ticketing.primary_sales;
---Select the unique values in the club_id column
+```
 
 4. What is the earliest and latest ticket sold?
---Latest
+```
+-- Instruction: Give me the latest ticket sold using DESC
+
 SELECT primary_sales.sale_datetime, primary_sales.ticket_id
 FROM workspace.mlb_ticketing.primary_sales
 ORDER BY sale_datetime DESC LIMIT 1;
 
-**or** 
+-- **or** 
+
+-- Instruction: Give me the latest ticket sold using MAX
 
 SELECT MAX(primary_sales.sale_datetime)
 FROM workspace.mlb_ticketing.primary_sales;
 
--- Earliest 
+-- Instruction: Give me the earliest ticket sold using ASC
+
 SELECT primary_sales.sale_datetime, primary_sales.ticket_id
 FROM workspace.mlb_ticketing.primary_sales
 ORDER BY sale_datetime ASC LIMIT 1;
  
 **or**
 
+-- Instruction: Give me the latest ticket sold using MIN
+
 SELECT MIN(primary_sales.sale_datetime)
 FROM workspace.mlb_ticketing.primary_sales;
+```
+
 
 ### Business Value Exercise 
 Instruction: Use workspace.mlb_ticketing.primary_sales 
@@ -231,14 +217,21 @@ Question(s):
 **AS** helps you change the name of the columns so stakeholders have better insight. You'll have to define this in the first line with SELECT or it will not work. 
 
 ### Examples: 
-1. What is the count for distinct ticket_id values? 
+1. What is the count for distinct ticket_id values?
+```
+-- Instruction: Give me the number of distinct sold tickets
+
 SELECT COUNT(DISTINCT ticket_id)
 FROM workspace.mlb_ticketing.primary_sales;
+```
 
-2. What is the average ticket purchase? 
+2. What is the average ticket purchase?
+```
+-- Instruction: Give me the average ticket purchase 
+
 SELECT AVG(primary_sales.price_face) AS average_ticket_price
 FROM workspace.mlb_ticketing.primary_sales;
-
+```
 ### Business Value Exercise 
 Instruction: Use workspace.mlb_ticketing.primary_sales 
 Question(s): 
