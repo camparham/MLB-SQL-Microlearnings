@@ -1,1 +1,60 @@
 # JOINS & Relationships
+## 4️⃣ How to use JOINS
+**JOINS** combines rows from two or more tables, based on a related column. This is how data connects! 
+
+This enables questions like:
+> Who placed the order?  
+> What did they buy?  
+> How many items were ordered?  
+> Who sold the order?
+They join on **foreign keys**, which are columns that reference a **primary key** in another table. Foreign keys allow tables to be joined together.
+**Primary keys** uniquely identify each record in a table.
+
+
+### Keys:
+- Primary Key Examples: `CustomerID`, `OrderID`, `ProductID`
+* Must be unique
+* Cannot be `NULL`
+* Should not change over time
+- Foreign Key Examples
+* Order.CustomerID → Customer.CustomerID
+* Order.SalespersonID → Salesperson.SalespersonID
+
+### Keys Summary:
+Using primary and foreign keys, you can:
+- connect customers to orders
+- connect orders to products
+- connect orders to salespeople
+Example questions: This enables questions like:
+> Who placed the order?  
+> What did they buy?  
+> How many items were ordered?  
+> Who sold the order?
+
+### Examples: 
+
+1. What fields are available from both tables before we start building reports or models?
+  SELECT *
+  FROM workspace.mlb_ticketing.club_reports 
+  JOIN workspace.mlb_ticketing.primary_sales 
+  on club_reports.game_id = primary_sales.game_id;
+ * -- Select all columns from club reports and primary sales tables on the rows where the game ids match
+
+2. What game_id data is available for price_face and reported_revenue before we start building reports or models?
+  SELECT primary_sales.price_face, club_reports.reported_revenue, primary_sales.game_id
+  FROM workspace.mlb_ticketing.primary_sales 
+  JOIN workspace.mlb_ticketing. club_reports
+  on club_reports.game_id = primary_sales.game_id;
+* -- Select price_face and reported_revenue columns from club reports and primary sales tables on the rows where game ids match
+
+### Business Value Exercise 
+Instruction: Use workspace.mlb_ticketing.primary_sales 
+Question(s): 
+   1. How do ticket sales compare to club performance metrics?
+   2. What is the total ticket revenue by club?
+   3. Are clubs on track to meet attendance goals?
+
+### Explanation/Debug
+  * Explanation:  
+  * Debug: 
+---
