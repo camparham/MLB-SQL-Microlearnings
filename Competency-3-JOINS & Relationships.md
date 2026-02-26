@@ -1,5 +1,29 @@
-# JOINS & Relationships
-## 4️⃣ How to use JOINS
+# Competency 3: Building Reliable Metrics with Joins (Pre-Multi-Aggregation) 
+
+## Purpose 
+Learn how to combine tables safely so your metrics stay trustworthy before you aggregate, summarize, or report.
+
+## 🎯 Competency Objectives
+By the end of this section, you will be able to answer questions:
+- Translate business questions into multi-table SQL queries (what tables, what keys, what join type)
+- Identify the relationship type between tables (1:1, 1:many, many:many) and predict row behavior
+- Select the correct join type (INNER, LEFT, FULL, CROSS) based on what must be included/excluded
+- Validate join correctness with row count checks and “coverage” checks (what % of records matched)
+- Prevent row multiplication and grain mismatch that silently breaks metrics (double counting, inflated revenue)
+- Build a debugging mindset: isolate joins, test join keys, and confirm assumptions with small samples
+  
+## Competency Outcome
+Demonstrate the ability to create accurate, non-duplicated business metrics from relational data by:
+
+- Choosing correct join paths and keys
+- Preserving the intended grain
+- Proving join integrity through row-count and match-rate validation
+- Explaining why a join is correct in plain language
+
+---
+
+
+## 1. How to use JOINS
 **JOINS** combines rows from two or more tables, based on a related column. This is how data connects! 
 
 This enables questions like:
