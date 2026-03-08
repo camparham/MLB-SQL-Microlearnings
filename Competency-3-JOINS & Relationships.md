@@ -21,39 +21,39 @@ Demonstrate the ability to create accurate, non-duplicated business metrics from
 - Explaining why a join is correct in plain language
 
 ---
+## 1. What are Keys?
+**Keys** attributes (columns) or sets of attributes used to uniquely identify rows within a table and establish relationships between different tables. There are two different types of keys: **foreign keys**, which are columns that reference a **primary key** in another table. Foreign keys allow tables to be joined together. 
+
+Using primary and foreign keys, you can (1)connect customers to orders; (2) connect orders to products, and (3) connect orders to salespeople. 
 
 
-## 1. How to use JOINS
-**JOINS** combines rows from two or more tables, based on a related column. This is how data connects! 
+- Primary Key Examples: `CustomerID`, `OrderID`, `ProductID`
+  * Must be unique
+  * Cannot be `NULL`
+  * Should not change over time
+    
+- Foreign Key Examples
+  * Order.CustomerID → Customer.CustomerID
+  * Order.SalespersonID → Salesperson.SalespersonID
 
-This enables questions like:
-> Who placed the order?  
-> What did they buy?  
-> How many items were ordered?  
-> Who sold the order?
+### Example(s):
 They join on **foreign keys**, which are columns that reference a **primary key** in another table. Foreign keys allow tables to be joined together.
 **Primary keys** uniquely identify each record in a table.
 
+1. Who placed the order?  
+2. What did they buy?  
+3. How many items were ordered?  
+4. Who sold the order?
 
-### Keys:
-- Primary Key Examples: `CustomerID`, `OrderID`, `ProductID`
-* Must be unique
-* Cannot be `NULL`
-* Should not change over time
-- Foreign Key Examples
-* Order.CustomerID → Customer.CustomerID
-* Order.SalespersonID → Salesperson.SalespersonID
+### Examples: 
 
-### Keys Summary:
-Using primary and foreign keys, you can:
-- connect customers to orders
-- connect orders to products
-- connect orders to salespeople
-Example questions: This enables questions like:
-> Who placed the order?  
-> What did they buy?  
-> How many items were ordered?  
-> Who sold the order?
+
+## 2. How to use JOINS
+**JOINS** combines rows from two or more tables, based on a related column. This is how data connects! 
+
+
+
+
 
 ### Examples: 
 
