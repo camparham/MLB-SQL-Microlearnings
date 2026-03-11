@@ -24,7 +24,10 @@ Demonstrate the ability to create accurate, non-duplicated business metrics from
 ## 1. What are Keys?
 **Keys** attributes (columns) or sets of attributes used to uniquely identify rows within a table and establish relationships between different tables. There are two different types of keys: **foreign keys**, which are columns that reference a **primary key** in another table. Foreign keys allow tables to be joined together. 
 
-Using primary and foreign keys, you can (1)connect customers to orders; (2) connect orders to products, and (3) connect orders to salespeople. Primary and foreign keys help you answer: (1)who placed the order?; (2) what did they buy?; (3)How many items were ordered?; and 4) who sold the order?
+* Using primary and foreign keys, you can:
+  * (1)Connect customers to orders; (2) Connect orders to products, and (3) Connect orders to salespeople.
+* Primary and foreign keys help you answer:
+  * (1) Who placed the order? (2) What did they buy?(3)How many items were ordered? and 4) who sold the order?
 
 - Primary Key Examples: `CustomerID`, `OrderID`, `ProductID`
   * Must be unique
@@ -36,11 +39,20 @@ Using primary and foreign keys, you can (1)connect customers to orders; (2) conn
   * Order.SalespersonID → Salesperson.SalespersonID
 
 ### Example(s):
-1. Are ticket sales uniquely identifiable?
-2. Are there duplicate game records?
+1. Are ticket sales uniquely identifiable? (i.e., Does each ticket sale have a unique identifier (e.g., sale_id or ticket_id?)
+```
+-- Instruction: Select all columns titled ticket_id from the sales table group by ticket_id and show me how many there are that's more than one.
+
+SELECT ticket_id, COUNT(*)
+FROM workspace.mlb_ticketing.primary_sales
+GROUP BY ticket_id
+HAVING COUNT(*) > 1;
+
+```
+3. Are there duplicate game records?
 
 ### Explanation/Debug
-This helps you get preliminary information about the data so you can see which tables have data commonality in order to join tables on the same row. 
+This helps you get preliminary information about the data so you can see which tables have data commonality in order to join tables on the same row. It prevents duplicate revenue reporting and ensures accurate financial reporting and revenue dashboards.
 
 
 ### Business Value Exercise 
