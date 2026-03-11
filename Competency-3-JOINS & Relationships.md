@@ -24,8 +24,7 @@ Demonstrate the ability to create accurate, non-duplicated business metrics from
 ## 1. What are Keys?
 **Keys** attributes (columns) or sets of attributes used to uniquely identify rows within a table and establish relationships between different tables. There are two different types of keys: **foreign keys**, which are columns that reference a **primary key** in another table. Foreign keys allow tables to be joined together. 
 
-Using primary and foreign keys, you can (1)connect customers to orders; (2) connect orders to products, and (3) connect orders to salespeople. 
-
+Using primary and foreign keys, you can (1)connect customers to orders; (2) connect orders to products, and (3) connect orders to salespeople. Primary and foreign keys help you answer: (1)who placed the order?; (2) what did they buy?; (3)How many items were ordered?; and 4) who sold the order?
 
 - Primary Key Examples: `CustomerID`, `OrderID`, `ProductID`
   * Must be unique
@@ -37,39 +36,45 @@ Using primary and foreign keys, you can (1)connect customers to orders; (2) conn
   * Order.SalespersonID → Salesperson.SalespersonID
 
 ### Example(s):
-They join on **foreign keys**, which are columns that reference a **primary key** in another table. Foreign keys allow tables to be joined together.
-**Primary keys** uniquely identify each record in a table.
+1. Are ticket sales uniquely identifiable?
+2. Are there duplicate game records?
 
-1. Who placed the order?  
-2. What did they buy?  
-3. How many items were ordered?  
-4. Who sold the order?
+### Explanation/Debug
+This helps you get preliminary information about the data so you can see which tables have data commonality in order to join tables on the same row. 
 
-### Examples: 
 
+### Business Value Exercise 
+1. Are there duplicate game records?
+2. Can every ticket be linked to seat information?
+
+---
 
 ## 2. How to use JOINS
 **JOINS** combines rows from two or more tables, based on a related column. This is how data connects! 
 
 
-
-
-
 ### Examples: 
 
 1. What fields are available from both tables before we start building reports or models?
-  SELECT *
-  FROM workspace.mlb_ticketing.club_reports 
-  JOIN workspace.mlb_ticketing.primary_sales 
-  on club_reports.game_id = primary_sales.game_id;
- * -- Select all columns from club reports and primary sales tables on the rows where the game ids match
+```
+-- Instruction: Select all columns from club reports and primary sales tables on the rows where the game ids match.
+
+SELECT *
+FROM workspace.mlb_ticketing.club_reports 
+JOIN workspace.mlb_ticketing.primary_sales 
+on club_reports.game_id = primary_sales.game_id;
+
+```
 
 2. What game_id data is available for price_face and reported_revenue before we start building reports or models?
-  SELECT primary_sales.price_face, club_reports.reported_revenue, primary_sales.game_id
-  FROM workspace.mlb_ticketing.primary_sales 
-  JOIN workspace.mlb_ticketing. club_reports
-  on club_reports.game_id = primary_sales.game_id;
-* -- Select price_face and reported_revenue columns from club reports and primary sales tables on the rows where game ids match
+```
+-- Instruction: Select price_face and reported_revenue columns from club reports and primary sales tables on the rows where game ids match.
+
+SELECT primary_sales.price_face, club_reports.reported_revenue, primary_sales.game_id
+FROM workspace.mlb_ticketing.primary_sales
+JOIN workspace.mlb_ticketing. club_reports
+on club_reports.game_id = primary_sales.game_id;
+``` 
 
 ### Business Value Exercise 
 Instruction: Use workspace.mlb_ticketing.primary_sales 
