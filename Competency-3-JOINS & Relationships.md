@@ -27,7 +27,7 @@ Demonstrate the ability to create accurate, non-duplicated business metrics from
 * Using primary and foreign keys, you can:
   * (1)Connect customers to orders; (2) Connect orders to products, and (3) Connect orders to salespeople.
 * Primary and foreign keys help you answer:
-  * (1) Who placed the order? (2) What did they buy?(3)How many items were ordered? and 4) who sold the order?
+  * (1) Who placed the order? (2) What did they buy? (3)How many items were ordered? and 4) who sold the order?
 
 - Primary Key Examples: `CustomerID`, `OrderID`, `ProductID`
   * Must be unique
@@ -39,9 +39,9 @@ Demonstrate the ability to create accurate, non-duplicated business metrics from
   * Order.SalespersonID → Salesperson.SalespersonID
 
 ### Example(s):
-1. Are ticket sales uniquely identifiable? (i.e., Does each ticket sale have a unique identifier (e.g., sale_id or ticket_id?)
+1. Are ticket sales uniquely identifiable? (i.e., Does each ticket sale have a unique identifier (e.g., sale_id or ticket_id?) **(primary key)**
 ```
--- Instruction: Select all columns titled ticket_id from the sales table group by ticket_id and show me how many there are that's more than one.
+-- Instruction: Select all columns titled ticket_id from the sales table, group by ticket_id, and show me how many there are that are more than one.
 
 SELECT ticket_id, COUNT(*)
 FROM workspace.mlb_ticketing.primary_sales
@@ -49,13 +49,25 @@ GROUP BY ticket_id
 HAVING COUNT(*) > 1;
 
 ```
-3. Are there duplicate game records?
+2. Are there duplicate game records? **(foreign key)**
+
+```
+-- Instruction: Select all rows with duplicate game records.
+
+SELECT * game_id
+FROM workspace.mlb_ticketing.game_metadata
+HAVING COUNT(*) > 1;
+
+```
 
 ### Explanation/Debug
-This helps you get preliminary information about the data so you can see which tables have data commonality in order to join tables on the same row. It prevents duplicate revenue reporting and ensures accurate financial reporting and revenue dashboards.
+This query is used to inspect the data and identify shared keys across tables so records can be joined correctly. Validating those relationships helps prevent duplicate revenue reporting, preserve data integrity, and ensure accurate financial reporting and dashboard metrics.
 
+### Business Value Exercise
 
-### Business Value Exercise 
+Instruction: Use workspace.mlb_ticketing.primary_sales 
+
+Question(s): 
 1. Are there duplicate game records?
 2. Can every ticket be linked to seat information?
 
@@ -67,33 +79,39 @@ This helps you get preliminary information about the data so you can see which t
 
 ### Examples: 
 
-1. What fields are available from both tables before we start building reports or models?
+1. What fields are available from both tables before we start building reports or models, and what primary key can we use to ensure there is a unique identifier to join the two tables?
 ```
--- Instruction: Select all columns from club reports and primary sales tables on the rows where the game ids match.
+-- Instruction: Select enough columns from club_reports and primary sales tables on the rows where the game ids match.
 
 SELECT *
-FROM workspace.mlb_ticketing.club_reports 
-JOIN workspace.mlb_ticketing.primary_sales 
-on club_reports.game_id = primary_sales.game_id;
-
+FROM workspace.mlb_ticketing.club_reports
+JOIN workspace.mlb_ticketing.primary_sales
+ON club_reports.game_id = primary_sales.game_id
+LIMIT 5;
 ```
 
-2. What game_id data is available for price_face and reported_revenue before we start building reports or models?
+2. How many ticket sales are associated with each club’s game?
+
 ```
 -- Instruction: Select price_face and reported_revenue columns from club reports and primary sales tables on the rows where game ids match.
 
-SELECT primary_sales.price_face, club_reports.reported_revenue, primary_sales.game_id
-FROM workspace.mlb_ticketing.primary_sales
-JOIN workspace.mlb_ticketing. club_reports
-on club_reports.game_id = primary_sales.game_id;
+SELECT club_reports.club_id, club_reports.game_id, COUNT (primary_sales.tickets_id)
+FROM workspace.mlb_ticketing. club_reports 
+JOIN workspace.mlb_ticketing.primary_sales
+ON club_reports.game_id = primary_sales.game_id
+AND club_reports.club_id = primary_sales.club_id
+GROUP BY club_reports.club_id, club_reports.game_id;
+
 ``` 
+### Explanation/Debug
+Helps verify ticket activity and compare it to tickets_reported. 
 
 ### Business Value Exercise 
-Instruction: Use workspace.mlb_ticketing.primary_sales 
+Instruction: Use workspace.mlb_ticketing.primary_sales and workspace.mlb_ticketing.club_reports
 Question(s): 
-   1. How do ticket sales compare to club performance metrics?
-   2. What is the total ticket revenue by club?
-   3. Are clubs on track to meet attendance goals?
+   1. What seat sections were sold for each game?
+   2. What sales channels are used for each game?
+   3. What was the price of tickets sold for each game?
 
 ### Explanation/Debug
   * Explanation:  
