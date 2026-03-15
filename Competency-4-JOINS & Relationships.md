@@ -1,4 +1,4 @@
-# Competency 3: Building Reliable Metrics with Joins (Pre-Multi-Aggregation) 
+# Competency 4: Building Reliable Metrics with Joins (Pre-Multi-Aggregation) 
 
 ## Purpose 
 Learn how to combine tables safely so your metrics stay trustworthy before you aggregate, summarize, or report.
@@ -8,8 +8,6 @@ By the end of this section, you will be able to answer questions:
 - Translate business questions into multi-table SQL queries (what tables, what keys, what join type)
 - Identify the relationship type between tables (1:1, 1:many, many:many) and predict row behavior
 - Select the correct join type (INNER, LEFT, FULL, CROSS) based on what must be included/excluded
-- Validate join correctness with row count checks and “coverage” checks (what % of records matched)
-- Prevent row multiplication and grain mismatch that silently breaks metrics (double counting, inflated revenue)
 - Build a debugging mindset: isolate joins, test join keys, and confirm assumptions with small samples
   
 ## Competency Outcome
@@ -21,7 +19,7 @@ Demonstrate the ability to create accurate, non-duplicated business metrics from
 - Explaining why a join is correct in plain language
 
 ---
-## 1. What are Keys?
+## 1. What are the most common JOIN paths? 
 **Keys** attributes (columns) or sets of attributes used to uniquely identify rows within a table and establish relationships between different tables. There are two different types of keys: **foreign keys**, which are columns that reference a **primary key** in another table. Foreign keys allow tables to be joined together. 
 
 * Using primary and foreign keys, you can:
