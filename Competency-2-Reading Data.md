@@ -50,7 +50,7 @@ SELECT player_name, jersey_number FROM workspace.default.mlb_active_rosters_new;
 ### Business Value Exercise 
 Instruction: Use workspace.mlb_ticketing.primary_sales 
 
-Question(s): 
+### Question(s): 
    1. What fields are available before we start building reports or models?
    2. Can we analyze revenue patterns by channel?
    3. What is the sum of each game by channel? 
