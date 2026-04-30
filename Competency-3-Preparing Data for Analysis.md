@@ -69,7 +69,7 @@ Question(s):
 
 ---
 
-## 2. How to use JOINS
+## 2. How to use JOINs
 **JOINS** combines rows from two or more tables, based on a related column. This is how data connects! 
 
 
