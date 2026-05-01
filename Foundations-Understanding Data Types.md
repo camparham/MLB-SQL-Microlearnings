@@ -1,14 +1,22 @@
-# Competency 2: Data Types
+# 🧱 Foundations: Understanding Data Types in SQL
 
-## Purpose
-Understand common data types and how they impact data modeling and analysis.
+This guide provides background on common SQL data types and how they impact how data is stored, interpreted, and queried.
 
-## Objectives
-After completing this section, you will be able to:
+💡 You don’t need to memorize everything here — use this as a reference as you build your SQL skills.
 
-- Recognize common data types
-- Differentiate between data types and when to use them
-- Apply rules of thumb when choosing data types
+---
+
+## Why Data Types Matter
+
+Data types determine:
+- how data is stored
+- how it behaves in queries
+- what operations are allowed
+
+Understanding data types helps you:
+- avoid incorrect calculations
+- write more accurate queries
+- interpret results correctly
 
 ---
 
