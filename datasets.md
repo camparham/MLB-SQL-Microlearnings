@@ -12,7 +12,7 @@ All datasets are derived from real-world Major League Baseball (MLB) data and ar
 
 ### 1. MLB Active Roster
 
-**File:** `mlb_active_roster.csv`
+**File:** [`mlb_active_roster.csv`](https://docs.google.com/spreadsheets/d/1Vg0cYQLL16h6lFBeq331NxvUnMrZf-aue75I1tzOXmA/edit?usp=sharing)
 
 **Description:**  
 Contains a snapshot of active MLB players across teams. Used to practice foundational SQL concepts like selecting, filtering, and understanding dataset structure.
@@ -31,7 +31,7 @@ FROM mlb_active_roster;
 
 **### 2. MLB Ticket Sales**
 
-****File:** **`primary_sales.csv`
+**File:** [`primary_sales.csv`](https://docs.google.com/spreadsheets/d/1Vg0cYQLL16h6lFBeq331NxvUnMrZf-aue75I1tzOXmA/edit?gid=1770571503#gid=1770571503)
 
 ****Description:** ** 
 Represents ticket sales data at the transaction level. Used to practice SQL concepts like filtering, aggregation, and understanding data grain.
@@ -48,12 +48,11 @@ SELECT game_id, COUNT(ticket_id) AS tickets_sold
 FROM primary_sales
 GROUP BY game_id;
 ```
-
 ---
 
 ### 3. MLB Game Metadata
 
-**File:** `game_metadata.csv`
+**File:** [`game_metadata.csv`] (https://docs.google.com/spreadsheets/d/1Vg0cYQLL16h6lFBeq331NxvUnMrZf-aue75I1tzOXmA/edit?gid=199746582#gid=199746582)
 
 **Description:**  
 Provides contextual information about each game, such as date, teams, and location. Used to support joins and enrich transactional data.
