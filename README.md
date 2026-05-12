@@ -1,6 +1,6 @@
 # SQL for Beginners: MLB Microlearning Course
 
-A competency-based SQL learning experience using real MLB data to help you think like a data analyst — not just write queries.
+A competency-based SQL learning experience using real MLB data to help you think like a data analyst — not just write queries. Watch how I run these queries on [YouTube](https://youtube.com/playlist?list=PLryj86eVRLnsCiwXK_PBhP6RXJ-2owsUk&si=NGDcUvbcLSRVFfg7)! 
 
 ---
 
